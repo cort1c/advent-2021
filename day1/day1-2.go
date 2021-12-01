@@ -7,6 +7,8 @@ import (
 	"strconv"
 )
 
+const WINDOW_SIZE int = 3
+
 func readInput() ([]int, error) {
 	file, err := os.Open("input.txt")
 	if err != nil {
@@ -26,13 +28,17 @@ func readInput() ([]int, error) {
 }
 
 func sumWindow(window []int) int {
-	return window[0] + window[1] + window[2]
+	result := 0
+	for _, w := range window {
+		result += w
+	}
+	return result
 }
 
 func updateWindow(window []int, inputs []int, index int) {
-	window[0] = inputs[index-2]
-	window[1] = inputs[index-1]
-	window[2] = inputs[index]
+	for i := 0; i < WINDOW_SIZE; i++ {
+		window[i] = inputs[index-(WINDOW_SIZE-1-i)]
+	}
 }
 
 func main() {
@@ -42,8 +48,8 @@ func main() {
 		return
 	}
 	prev, result := -1, 0
-	window := []int{0, 0, 0}
-	for i := 2; i < len(inputs); i++ {
+	window := make([]int, WINDOW_SIZE)
+	for i := WINDOW_SIZE - 1; i < len(inputs); i++ {
 		updateWindow(window, inputs, i)
 		sum := sumWindow(window)
 		if prev != -1 && sum > prev {
