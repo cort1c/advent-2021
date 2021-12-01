@@ -31,8 +31,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	prev := -1
-	result := 0
+	prev, result := -1, 0
 	for _, input := range inputs {
 		if prev != -1 && input > prev {
 			result++

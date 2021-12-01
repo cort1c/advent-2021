@@ -41,8 +41,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	prev := -1
-	result := 0
+	prev, result := -1, 0
 	window := []int{0, 0, 0}
 	for i := 2; i < len(inputs); i++ {
 		updateWindow(window, inputs, i)
